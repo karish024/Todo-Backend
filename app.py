@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 
 # Connecting the Database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://oflflcpogpfewx:adb245208dafc04936942c87acd9a0b5b6ee7c12f0abafd88423dac3c10e0f83@ec2-52-73-155-171.compute-1.amazonaws.com:5432/d6e0906pbp54uo'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://zybrdrdsgxvtss:bd83da69e431203e28acfe61ffcdd891b303914f3cd6005058fff79f19a5abd6@ec2-54-173-77-184.compute-1.amazonaws.com:5432/d5pn062kkjdnfu'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False         
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
@@ -60,7 +60,7 @@ def add():
     return {"message":"successfully created"}, 200
 
 
-@app.route("/update/<int:todo_id>")
+@app.route("/update/<int:todo_id>", methods=["PUT"])
 def update(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     todo.complete = not todo.complete
@@ -68,7 +68,7 @@ def update(todo_id):
     return {"message":"successfully completed"}, 200
 
 
-@app.route("/delete/<int:todo_id>")
+@app.route("/delete/<int:todo_id>", methods=["DELETE"])
 def delete(todo_id):
     todo = Todo.query.filter_by(id=todo_id).first()
     db.session.delete(todo)
